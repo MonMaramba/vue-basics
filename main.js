@@ -4,9 +4,12 @@ var app = new Vue({
   el: "#app",
   // passing data to the html
   data: {
+    brand: "Vue Mastery",
     product: "Socks",
-    image: "./assets/vmSocks-green-onWhite.jpg",
-    inventory: 0,
+    // initializing property to display
+    selectedVariant: 0,
+    inventory: 20,
+
     details: ["80% cotton", "20% polyester", "Gender-neutral"],
     variants: [
       {
@@ -29,8 +32,17 @@ var app = new Vue({
     decrementCart() {
       this.cart -= 1;
     },
-    updateProduct(variantImage) {
-      this.image = variantImage;
+    updateProduct(index) {
+      this.selectedVariant = index;
+    }
+  },
+
+  computed: {
+    title() {
+      return this.brand + " " + this.product;
+    },
+    image() {
+      return this.variants[this.selectedVariant].variantImage;
     }
   }
 });
