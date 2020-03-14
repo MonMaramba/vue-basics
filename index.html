@@ -24,23 +24,36 @@
           <p v-else-if="inventory <= 10 && inventory > 0">
             Almost out of stock
           </p>
-          <p v-else>Out of Stock</p>
+          <p
+            v-else-if="inventory <= 0"
+            :class="{disabledButton: inventory <= 0}"
+          >
+            Out of Stock
+          </p>
           <!-- for lists a v-for directive is used  -->
           <ul>
             <li v-for="detail in details">{{ detail }}</li>
           </ul>
           <!-- iterating through an array of objects -->
           <!-- keys are highly recommended so elements can be tracked -->
-          <div v-for="variant in variants" :key="variant.variantId">
-            <p>Product id: {{ variant.variantId }}</p>
-            <!-- @ is short for v-on -->
-            <p @mouseover="updateProduct(variant.variantImage)">
-              Color: {{ variant.variantColor }}
-            </p>
-          </div>
-          <!-- v-on:click="cart +=1" v-on is an event listener :click is the event being listened for -->
+          <div
+            v-for="variant in variants"
+            :key="variant.variantId"
+            class="color-box"
+            :style="{ backgroundColor: variant.variantColor}"
+            @mouseover="updateProduct(variant.variantImage)"
+          ></div>
+          <!-- v-on:click="cart +=1" v-on is an event listener :click is the event being listened on -->
+          <!-- @ is short for v-on -->
           <!-- v-on:functionName triggers on click -->
-          <button v-on:click="addToCart">Add to cart</button>
+          <!-- binding class to conditions -->
+          <button
+            v-on:click="addToCart"
+            :disabled="inventory <= 0"
+            :class="{disabledButton: inventory <= 0}"
+          >
+            Add to cart
+          </button>
           <button v-on:click="decrementCart">Lessen cart</button>
 
           <div class="cart">
