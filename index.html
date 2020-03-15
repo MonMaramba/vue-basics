@@ -10,52 +10,8 @@
   <body>
     <div class="nav-bar"></div>
     <div id="app">
-      <div class="product">
-        <div class="product-image">
-          <!-- v-bind is a vue directive that binds the data to the attribute -->
-          <img v-bind:src="image" />
-        </div>
-        <div class="product-info">
-          <!-- like handlebars, the double expressions {{ }}tells where data needs to go -->
-          <h1>{{title}}</h1>
-
-          <!-- conditional rendering   -->
-          <p v-if="inStock">In Stock</p>
-
-          <p else-if="!inStock">
-            Out of Stock
-          </p>
-          <!-- for lists a v-for directive is used  -->
-          <ul>
-            <li v-for="detail in details">{{ detail }}</li>
-          </ul>
-          <!-- iterating through an array of objects -->
-          <!-- keys are highly recommended so elements can be tracked -->
-          <div
-            v-for="(variant, index) in variants"
-            :key="variant.variantId"
-            class="color-box"
-            :style="{ backgroundColor: variant.variantColor}"
-            @mouseover="updateProduct(index)"
-          ></div>
-          <!-- v-on:click="cart +=1" v-on is an event listener :click is the event being listened on -->
-          <!-- @ is short for v-on -->
-          <!-- v-on:functionName triggers on click -->
-          <!-- binding class to conditions -->
-          <button
-            v-on:click="addToCart"
-            :disabled="!inStock"
-            :class="{disabledButton: !inStock}"
-          >
-            Add to cart
-          </button>
-          <button v-on:click="decrementCart">Lessen cart</button>
-
-          <div class="cart">
-            <p>Cart({{ cart }})</p>
-          </div>
-        </div>
-      </div>
+      <!-- to pass in props as a custom attribute-->
+      <product :premium="premium"></product>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
